@@ -10,6 +10,14 @@ import './kegiatan.dart';
 import './prestasi_akademik.dart';
 import './organisasi.dart';
 import './login.dart';
+import './mahasiswa/karya-tulis.dart';
+import './mahasiswa/prestasi-akademik.dart';
+import './mahasiswa/prestasi-non-akademik.dart';
+import './mahasiswa/prestasi-non-akademik-add.dart';
+import './mahasiswa/organisasi.dart';
+import './mahasiswa/pengajuan-dana.dart';
+import './mahasiswa/pengajuan-dana-add.dart';
+import './mahasiswa/kegiatan.dart';
 
 // MAHASISWA
 import './mahasiswa/dashboard.dart';
@@ -49,6 +57,7 @@ class _HomeAppState extends State<HomeApp> {
       title: 'Aplikasi Bidik Misi',
       routes: {
         '/' : (_) => loggedIn ? DashboardApp() : LoginApp(),
+        '/login' : (_) => LoginApp(),
         '/dashboard' : (_) => DashboardApp(),
         '/user' : (_) => UserApp(),
         '/mahasiswa' : (_) => MahasiswaApp(),
@@ -57,11 +66,20 @@ class _HomeAppState extends State<HomeApp> {
         '/kegiatan' : (_) => Kegiatan(),
         '/prestasi-akademik' : (_) => PrestasiAkademik(),
         '/organisasi' : (_) => Organisasi(),
+
         '/mahasiswa/dashboard' : (_) => DashboardMahasiswaApp(),
         '/mahasiswa/data' : (_) => DataMahasiswa(),
-        '/mahasiswa/user' : (_) => ProfileMahasiswa()
+        '/mahasiswa/user' : (_) => ProfileMahasiswa(),
+        '/mahasiswa/prestasi-akademik' : (_) => MahasiswaPrestasiAkademik(),
+        '/mahasiswa/prestasi-non-akademik' : (_) => MahasiswaPrestasiNonAkademik(),
+        '/mahasiswa/prestasi-non-akademik/add' : (_) => MahasiswaPrestasiNonAkademikTambah(),
+        '/mahasiswa/organisasi' : (_) => MahasiswaOrganisasi(),
+        '/mahasiswa/pengajuan-dana' : (_) => MahasiswaPengajuanDana(),
+        '/mahasiswa/pengajuan-dana/add' : (_) => MahasiswaPengajuanDanaTambah(),
+        '/mahasiswa/karya-tulis' : (_) => KaryaTulis(),
+        '/mahasiswa/kegiatan' : (_) => MahasiswaKegiatan()
       },
-      initialRoute: '/',
+      initialRoute: '/mahasiswa/dashboard',
     );
   }
 }

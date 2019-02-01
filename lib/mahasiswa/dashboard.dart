@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardMahasiswaApp extends StatefulWidget {
   _DashboardAppState createState() => _DashboardAppState();
@@ -13,8 +14,10 @@ class _DashboardAppState extends State<DashboardMahasiswaApp> {
         actions: <Widget>[
           FlatButton.icon(
             icon: Icon(Icons.exit_to_app, color: Colors.white),
-            onPressed: () {
-
+            onPressed: () async {
+              SharedPreferences preferences = await SharedPreferences.getInstance();
+              preferences.clear();
+              Navigator.of(context).pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
             },
             label: Text('Keluar', style: TextStyle(
               color: Colors.white
@@ -59,7 +62,7 @@ class _DashboardAppState extends State<DashboardMahasiswaApp> {
                           },
                           child: GridTile(
                             child: Icon(Icons.person, size: 40.0, color: Theme.of(context).primaryColor),
-                            footer: Text('User', textAlign: TextAlign.center, style: TextStyle(
+                            footer: Text('Profile', textAlign: TextAlign.center, style: TextStyle(
                               fontSize: 10.0
                             )),
                           ),
@@ -123,6 +126,7 @@ class _DashboardAppState extends State<DashboardMahasiswaApp> {
                         child: InkWell(
                           splashColor: Colors.green,
                           onTap: () {
+                            Navigator.of(context).pushNamed('/mahasiswa/prestasi-non-akademik');
                           },
                           child: GridTile(
                             child: Icon(Icons.grade, size: 40.0, color: Colors.purple),
@@ -156,6 +160,7 @@ class _DashboardAppState extends State<DashboardMahasiswaApp> {
                         child: InkWell(
                           splashColor: Colors.green,
                           onTap: () {
+                            Navigator.of(context).pushNamed('/mahasiswa/karya-tulis');
                           },
                           child: GridTile(
                             child: Icon(Icons.book, size: 40.0, color: Colors.lightBlue),
@@ -172,6 +177,7 @@ class _DashboardAppState extends State<DashboardMahasiswaApp> {
                         child: InkWell(
                           splashColor: Colors.green,
                           onTap: () {
+                            Navigator.of(context).pushNamed('/mahasiswa/pengajuan-dana');
                           },
                           child: GridTile(
                             child: Icon(Icons.monetization_on, size: 40.0, color: Colors.indigo),
