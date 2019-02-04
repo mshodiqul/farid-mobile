@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import './organisasi-list.dart';
+import './karya-tulis-list.dart';
 
-class Organisasi extends StatefulWidget {
-  _OrganisasiState createState() => _OrganisasiState();
+class KaryaTulisApp extends StatefulWidget {
+  _KaryaTulisState createState() => _KaryaTulisState();
 }
 
-class _OrganisasiState extends State<Organisasi> {
+class _KaryaTulisState extends State<KaryaTulisApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Daftar Organisasi'),
+        title: Text('Daftar Karya Tulis'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -50,7 +50,7 @@ class _OrganisasiState extends State<Organisasi> {
                     ),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (_) => OrganisasiList(nim: '2888')
+                        builder: (_) => KaryaTulisList(nim: '2018991820182')
                       ));
                     },
                     title: Text('Muzaki'),

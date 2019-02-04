@@ -8,6 +8,11 @@ import './add-user.dart';
 import './add-mahasiswa.dart';
 import './kegiatan.dart';
 import './prestasi_akademik.dart';
+import './prestasi-non-akademik.dart';
+import './karya-tulis.dart';
+import './pengajuan-dana.dart';
+import './kegiatan-tambah.dart';
+
 import './organisasi.dart';
 import './login.dart';
 import './mahasiswa/karya-tulis.dart';
@@ -64,9 +69,13 @@ class _HomeAppState extends State<HomeApp> {
         '/add-user' : (_) => AddUser(),
         '/add-mahasiswa' : (_) => AddMahasiswa(),
         '/kegiatan' : (_) => Kegiatan(),
+        '/kegiatan/tambah' : (_) => KegiatanTambah(),
         '/prestasi-akademik' : (_) => PrestasiAkademik(),
-        '/organisasi' : (_) => Organisasi(),
+        '/prestasi-non-akademik' : (_) => PrestasiNonAkademik(),
+        '/karya-tulis' : (_) => KaryaTulisApp(),
+        '/pengajuan-dana' : (_) => PengajuanDana(),
 
+        '/organisasi' : (_) => Organisasi(),
         '/mahasiswa/dashboard' : (_) => DashboardMahasiswaApp(),
         '/mahasiswa/data' : (_) => DataMahasiswa(),
         '/mahasiswa/user' : (_) => ProfileMahasiswa(),
@@ -79,7 +88,7 @@ class _HomeAppState extends State<HomeApp> {
         '/mahasiswa/karya-tulis' : (_) => KaryaTulis(),
         '/mahasiswa/kegiatan' : (_) => MahasiswaKegiatan()
       },
-      initialRoute: '/mahasiswa/dashboard',
+      initialRoute: '/',
     );
   }
 }

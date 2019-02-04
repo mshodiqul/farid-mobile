@@ -1,4 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import '../config/api.dart' show urlApi;
+import 'package:http/http.dart' as http;
 
 class MahasiswaKegiatan extends StatefulWidget {
   @override
@@ -6,6 +9,29 @@ class MahasiswaKegiatan extends StatefulWidget {
 }
 
 class _PrestasiNonAkademikState extends State<MahasiswaKegiatan> {
+  List data = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  getData() async {
+    http.Response response = await http.get(urlApi + '/api/kegiatan/list.php');
+    var body = jsonDecode(response.body);
+    print(body);
+    setState(() {
+      data = body;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

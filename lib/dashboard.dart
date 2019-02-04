@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DashboardApp extends StatefulWidget {
   _DashboardAppState createState() => _DashboardAppState();
@@ -10,6 +11,19 @@ class _DashboardAppState extends State<DashboardApp> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Bidik Misi'),
+        actions: <Widget>[
+          FlatButton.icon(
+            icon: Icon(Icons.exit_to_app, color: Colors.white),
+            onPressed: () async {
+              SharedPreferences preferences = await SharedPreferences.getInstance();
+              preferences.clear();
+              Navigator.of(context).pushNamedAndRemoveUntil('/login', (Route<dynamic> route) => false);
+            },
+            label: Text('Keluar', style: TextStyle(
+              color: Colors.white
+            )),
+          )
+        ],
       ),
       body: SingleChildScrollView(
         child: Stack(
@@ -112,6 +126,7 @@ class _DashboardAppState extends State<DashboardApp> {
                         child: InkWell(
                           splashColor: Colors.green,
                           onTap: () {
+                            Navigator.of(context).pushNamed('/prestasi-non-akademik');
                           },
                           child: GridTile(
                             child: Icon(Icons.grade, size: 40.0, color: Colors.purple),
@@ -145,6 +160,7 @@ class _DashboardAppState extends State<DashboardApp> {
                         child: InkWell(
                           splashColor: Colors.green,
                           onTap: () {
+                            Navigator.of(context).pushNamed('/karya-tulis');
                           },
                           child: GridTile(
                             child: Icon(Icons.book, size: 40.0, color: Colors.lightBlue),
@@ -161,6 +177,7 @@ class _DashboardAppState extends State<DashboardApp> {
                         child: InkWell(
                           splashColor: Colors.green,
                           onTap: () {
+                            Navigator.of(context).pushNamed('/pengajuan-dana');
                           },
                           child: GridTile(
                             child: Icon(Icons.monetization_on, size: 40.0, color: Colors.indigo),
