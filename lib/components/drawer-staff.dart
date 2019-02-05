@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class DrawerMahasiswa extends StatelessWidget {
+class DrawerStaff extends StatelessWidget {
   final String nama;
-  final String nim;
-  DrawerMahasiswa({
+  final String userId;
+  DrawerStaff({
     @required this.nama,
-    @required this.nim
+    @required this.userId
   });
 
   @override
@@ -35,7 +35,7 @@ class DrawerMahasiswa extends StatelessWidget {
                       fontSize: 25.0,
                       fontWeight: FontWeight.bold
                     )),
-                    Text(nim, style: TextStyle(
+                    Text(userId, style: TextStyle(
                       color: Colors.white,
                       fontSize: 20.0
                     )),
@@ -60,63 +60,63 @@ class DrawerMahasiswa extends StatelessWidget {
           title: Text('Profile'),
           leading: Icon(Icons.person),
           onTap: () {
-            Navigator.of(context).pushNamed('/mahasiswa/user');
+            Navigator.of(context).pushNamed('/user');
           },
         ),
         ListTile(
           title: Text('Mahasiswa'),
           leading: Icon(Icons.group),
           onTap: () {
-            Navigator.of(context).pushNamed('/mahasiswa/data');
+            Navigator.of(context).pushNamed('/mahasiswa');
           },
         ),
         ListTile(
           title: Text('Kegiatan'),
           leading: Icon(Icons.calendar_today),
           onTap: () {
-            Navigator.of(context).pushNamed('/mahasiswa/kegiatan');
+            Navigator.of(context).pushNamed('/kegiatan');
           },
         ),
         ListTile(
           title: Text('Akademik'),
           leading: Icon(Icons.star),
           onTap: () {
-            Navigator.of(context).pushNamed('/mahasiswa/prestasi-akademik');
+            Navigator.of(context).pushNamed('/prestasi-akademik');
           },
         ),
         ListTile(
           title: Text('Non Akademik'),
           leading: Icon(Icons.filter),
           onTap: () {
-            Navigator.of(context).pushNamed('/mahasiswa/prestasi-non-akademik');
+            Navigator.of(context).pushNamed('/prestasi-non-akademik');
           },
         ),
         ListTile(
           title: Text('Organisasi'),
           leading: Icon(Icons.group_work),
           onTap: () {
-            Navigator.of(context).pushNamed('/mahasiswa/organisasi');
+            Navigator.of(context).pushNamed('/organisasi');
           },
         ),
         ListTile(
           title: Text('Karya Tulis'),
           leading: Icon(Icons.book),
           onTap: () {
-            Navigator.of(context).pushNamed('/mahasiswa/karya-tulis');
+            Navigator.of(context).pushNamed('/karya-tulis');
           },
         ),
         ListTile(
           title: Text('Non Akademik'),
           leading: Icon(Icons.attach_money),
           onTap: () {
-            Navigator.of(context).pushNamed('/mahasiswa/pengajuan-dana');
+            Navigator.of(context).pushNamed('/pengajuan-dana');
           },
         ),
         ListTile(
           title: Text('Laporan Semester'),
           leading: Icon(Icons.collections_bookmark),
           onTap: () {
-            Navigator.of(context).pushNamed('/mahasiswa/laporan-semester');
+            Navigator.of(context).pushNamed('/laporan-semester');
           },
         )
       ],

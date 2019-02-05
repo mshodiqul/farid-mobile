@@ -47,7 +47,6 @@ class _ProfileMahasiswaState extends State<ProfileMahasiswa> {
   getDetailData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String userId = preferences.getString('userid');
-    print(userId);
     setState(() {
       loading = true;
     });

@@ -141,7 +141,7 @@ class LoginAppState extends State<LoginApp> {
           SharedPreferences preferences = await SharedPreferences.getInstance();
           preferences.setString('userid', body['user_id']);
           preferences.setString('role', body['role']);
-          preferences.setString('nama', body['nama']);
+          preferences.setString('nama', body['nama_user']);
 
           if (body['role'] == 'mahasiswa') {
             Navigator.pushNamedAndRemoveUntil(context, '/mahasiswa/dashboard', (Route<dynamic> route) => false);

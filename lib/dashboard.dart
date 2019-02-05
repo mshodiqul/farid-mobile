@@ -1,11 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import './components/drawer-staff.dart';
 
 class DashboardApp extends StatefulWidget {
   _DashboardAppState createState() => _DashboardAppState();
 }
 
 class _DashboardAppState extends State<DashboardApp> {
+  bool loading = false;
+  String nama = '';
+  String userId = '';
+  String role = '';
+  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getDetailData();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+  
+  getDetailData() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String userId = preferences.getString('userid');
+    String nama = preferences.getString('nama');
+    String role = preferences.getString('role');
+
+    setState(() {
+      loading = false;
+      nama = nama;
+      role = role;
+      userId = userId;
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +57,9 @@ class _DashboardAppState extends State<DashboardApp> {
             )),
           )
         ],
+      ),
+      drawer: Drawer(
+        child: DrawerStaff(nama: nama, userId: userId.toString())
       ),
       body: SingleChildScrollView(
         child: Stack(
