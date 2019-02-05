@@ -58,7 +58,7 @@ class _ProfileMahasiswaState extends State<ProfileMahasiswa> {
       seconds: 1
     ));
     setState(() {
-      data = body[0];
+      data = body.length > 0 ? body[0] : {};
       loading = false;
     });
     parsingData();

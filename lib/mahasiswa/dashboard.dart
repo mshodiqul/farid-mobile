@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../components/drawer-mahasiswa.dart';
 
 class DashboardMahasiswaApp extends StatefulWidget {
   _DashboardAppState createState() => _DashboardAppState();
@@ -9,8 +10,18 @@ class _DashboardAppState extends State<DashboardMahasiswaApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(
+        child: DrawerMahasiswa(nama: 'Farid', nim: 102312381.toString())
+      ),
       appBar: AppBar(
-        title: Text('Bidik Misi'),
+        elevation: 0.0,
+        bottom: PreferredSize(
+          preferredSize: Size(double.infinity, 50.0),
+          child: Text('MAHASISWA', style: TextStyle(
+            fontSize: 30.0,
+            color: Colors.white
+          )),
+        ),
         actions: <Widget>[
           FlatButton.icon(
             icon: Icon(Icons.exit_to_app, color: Colors.white),
@@ -28,19 +39,20 @@ class _DashboardAppState extends State<DashboardMahasiswaApp> {
       body: SingleChildScrollView(
         child: Stack(
           children: <Widget>[
-            SizedBox(width: double.infinity, height: 300.0, child: Container(
+            SizedBox(width: double.infinity, height: 200.0, child: Container(
               color: Theme.of(context).primaryColor
             )),
             Padding(
-              padding: EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(10.0),
               child: SizedBox(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height,
                 child: Container(
-                  margin: EdgeInsets.only(top: 50.0),
+                  margin: EdgeInsets.only(top: 30.0),
                   padding: EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                     color: Colors.white,
+                    borderRadius: BorderRadius.circular(10.0),
                     boxShadow: [BoxShadow(
                       blurRadius: 5.0,
                       color: Colors.grey
