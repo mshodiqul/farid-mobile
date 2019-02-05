@@ -62,7 +62,7 @@ class _PrestasiAkademikState extends State<PrestasiAkademik> {
             title: Text('${mahasiswa['nama']}'),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(
-                builder: (_) => new PrestasiAkademikDetail(id: index.toString())
+                builder: (_) => new PrestasiAkademikDetail(id: mahasiswa['nim'])
               ));
             },
           );

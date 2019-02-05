@@ -12,6 +12,7 @@ class PrestasiNonAkademik extends StatefulWidget {
 class _PrestasiAkademikState extends State<PrestasiNonAkademik> {
   List data = [];
   bool loading = false;
+
   void initState() { 
     super.initState();
     getData();
@@ -64,6 +65,7 @@ class _PrestasiAkademikState extends State<PrestasiNonAkademik> {
               Navigator.push(context, MaterialPageRoute(
                 builder: (_) => new PrestasiNonAkademikDetail(
                   nim: mahasiswa['nim'].toString(),
+                  nama: mahasiswa['nama'].toString()
                 )
               ));
             },
