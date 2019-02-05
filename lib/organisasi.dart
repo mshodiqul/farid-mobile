@@ -1,18 +1,56 @@
 import 'package:flutter/material.dart';
 import './organisasi-list.dart';
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+import './config/api.dart' show urlApi;
 
 class Organisasi extends StatefulWidget {
   _OrganisasiState createState() => _OrganisasiState();
 }
 
 class _OrganisasiState extends State<Organisasi> {
+  List data = [];
+  bool loading = false;
+
+  void initState() { 
+    super.initState();
+    getData();
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  getData() async {
+    setState(() {
+      loading = true;
+    });
+    http.Response response = await http.get(urlApi + '/api/mahasiswa/list.php');
+    var body = jsonDecode(response.body);
+    await Future.delayed(Duration(
+      seconds: 1
+    ));
+    setState(() {
+      data = body;
+      loading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Daftar Organisasi'),
       ),
-      body: SingleChildScrollView(
+      body: loading ? Center(
+          child: SizedBox(
+            width: 100.0,
+            height: 100.0,
+            child: CircularProgressIndicator(),
+          ),
+        ) : SingleChildScrollView(
         child: Column(
           children: <Widget>[
             SizedBox(
@@ -41,20 +79,22 @@ class _OrganisasiState extends State<Organisasi> {
               width: double.infinity,
               height: MediaQuery.of(context).size.height - 100.0,
               child: ListView.builder(
-                itemCount: 3,
+                itemCount: data.length,
                 itemBuilder: (_, int index) {
+                  Map<String, dynamic> d = data[index];
+
                   return ListTile(
                     leading: CircleAvatar(
                       backgroundColor: Colors.blue,
-                      child: Text('Muzaki'.substring(0,1)),
+                      child: Text(d['nama'].substring(0,1)),
                     ),
                     onTap: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (_) => OrganisasiList(nim: '2888')
+                        builder: (_) => OrganisasiList(nim: d['nim'], nama: d['nama'])
                       ));
                     },
-                    title: Text('Muzaki'),
-                    subtitle: Text('NIM : 200192910102')
+                    title: Text(d['nama']),
+                    subtitle: Text('NIM : ${d['nim']}')
                   );
                 },
               ),
