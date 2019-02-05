@@ -16,6 +16,7 @@ import './kegiatan-tambah.dart';
 import './organisasi.dart';
 import './login.dart';
 import './mahasiswa/karya-tulis.dart';
+import './mahasiswa/karya-tulis-tambah.dart';
 import './mahasiswa/prestasi-akademik.dart';
 import './mahasiswa/prestasi-non-akademik.dart';
 import './mahasiswa/prestasi-non-akademik-add.dart';
@@ -88,6 +89,7 @@ class _HomeAppState extends State<HomeApp> {
         '/mahasiswa/pengajuan-dana' : (_) => MahasiswaPengajuanDana(),
         '/mahasiswa/pengajuan-dana/add' : (_) => MahasiswaPengajuanDanaTambah(),
         '/mahasiswa/karya-tulis' : (_) => KaryaTulis(),
+        '/mahasiswa/karya-tulis/tambah' : (_) => KaryaTulisTambah(),
         '/mahasiswa/kegiatan' : (_) => MahasiswaKegiatan()
       },
       initialRoute: '/',
