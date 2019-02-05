@@ -49,15 +49,15 @@ class _OrganisasiDetailState extends State<OrganisasiDetail> {
     });
   }
 
-Future<File> _downloadFile(String url, String filename) async {
-    http.Client _client = new http.Client();
-    var req = await _client.get(Uri.parse(url));
-    var bytes = req.bodyBytes;
-    String dir = (await getApplicationDocumentsDirectory()).path;
-    File file = new File('$dir/$filename');
-    await file.writeAsBytes(bytes);
-    return file;
-}
+  Future<File> _downloadFile(String url, String filename) async {
+      http.Client _client = new http.Client();
+      var req = await _client.get(Uri.parse(url));
+      var bytes = req.bodyBytes;
+      String dir = (await getApplicationDocumentsDirectory()).path;
+      File file = new File('$dir/$filename');
+      await file.writeAsBytes(bytes);
+      return file;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
