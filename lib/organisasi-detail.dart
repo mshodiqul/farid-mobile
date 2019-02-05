@@ -58,6 +58,7 @@ class _OrganisasiDetailState extends State<OrganisasiDetail> {
       await file.writeAsBytes(bytes);
       return file;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
