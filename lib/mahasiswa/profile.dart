@@ -54,7 +54,6 @@ class _ProfileMahasiswaState extends State<ProfileMahasiswa> {
 
     http.Response response = await http.get(urlApi + '/api/mahasiswa/list.php?nim=' + userId);
     var body = jsonDecode(response.body);
-    print(body);
     await Future.delayed(Duration(
       seconds: 1
     ));

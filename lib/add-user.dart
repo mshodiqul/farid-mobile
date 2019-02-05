@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+import './config/api.dart' show urlApi;
 
 class AddUser extends StatefulWidget {
   _AddUserState createState() => _AddUserState();
@@ -23,13 +24,32 @@ class _AddUserState extends State<AddUser> {
     super.dispose();
   }
 
-  void submit() {
+  void submit() async {
     if (_formKey.currentState.validate()) {
       Map<String, dynamic> dataToSend = {
-        'username' : username,
-        'password' : password,
+        'username' : username.text,
+        'password' : password.text,
+        'nama' : username.text,
         'role' : role
       };
+
+      http.Response response = await http.post(urlApi + '/api/users/add-user.php', body: dataToSend);
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text('Success'),
+          content: Text('Berhasil Tambah User Baru'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('OK'),
+              onPressed: () {
+                Navigator.of(context, rootNavigator: true).pop();
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        )
+      );
     }
   }
 

@@ -28,6 +28,7 @@ import './mahasiswa/kegiatan.dart';
 import './mahasiswa/dashboard.dart';
 import './mahasiswa/data-mahasiswa.dart';
 import './mahasiswa/profile.dart';
+import './mahasiswa/organisasi-tambah.dart';
 
 class HomeApp extends StatefulWidget {
   _HomeAppState createState() => _HomeAppState();
@@ -74,8 +75,8 @@ class _HomeAppState extends State<HomeApp> {
         '/prestasi-non-akademik' : (_) => PrestasiNonAkademik(),
         '/karya-tulis' : (_) => KaryaTulisApp(),
         '/pengajuan-dana' : (_) => PengajuanDana(),
-
         '/organisasi' : (_) => Organisasi(),
+
         '/mahasiswa/dashboard' : (_) => DashboardMahasiswaApp(),
         '/mahasiswa/data' : (_) => DataMahasiswa(),
         '/mahasiswa/user' : (_) => ProfileMahasiswa(),
@@ -83,6 +84,7 @@ class _HomeAppState extends State<HomeApp> {
         '/mahasiswa/prestasi-non-akademik' : (_) => MahasiswaPrestasiNonAkademik(),
         '/mahasiswa/prestasi-non-akademik/add' : (_) => MahasiswaPrestasiNonAkademikTambah(),
         '/mahasiswa/organisasi' : (_) => MahasiswaOrganisasi(),
+        '/mahasiswa/organisasi/add' : (_) => OrganisasiTambah(),
         '/mahasiswa/pengajuan-dana' : (_) => MahasiswaPengajuanDana(),
         '/mahasiswa/pengajuan-dana/add' : (_) => MahasiswaPengajuanDanaTambah(),
         '/mahasiswa/karya-tulis' : (_) => KaryaTulis(),

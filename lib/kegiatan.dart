@@ -43,15 +43,17 @@ class _KegiatanState extends State<Kegiatan> {
         }
       ),
       body: ListView.builder(
-        itemCount: 3,
+        itemCount: data.length,
         itemBuilder: (_, int index) {
+          Map<String, dynamic> kegiatan = data[index];
+
           return ListTile(
             leading: CircleAvatar(
               backgroundColor: Colors.red,
-              child: Text(index.toString()),
+              child: Text((index + 1).toString()),
             ),
-            title: Text('Event ${index}'),
-            subtitle: Text('Waktu Pelaksana : 2019-08-20'),
+            title: Text(kegiatan['Judul Kegiatan']),
+            subtitle: Text('${kegiatan['Waktu Pelaksanaan']} - ${kegiatan['tanggal']} ${kegiatan['pukul']}'),
           );
         },
       )

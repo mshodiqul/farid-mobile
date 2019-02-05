@@ -7,22 +7,22 @@ import '../config/api.dart' show urlApi;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:file_picker/file_picker.dart';
 
-class MahasiswaPrestasiNonAkademikTambah extends StatefulWidget {
+class OrganisasiTambah extends StatefulWidget {
   @override
-  _PrestasiNonAkademikTambahState createState() => _PrestasiNonAkademikTambahState();
+  _OrganisasiState createState() => _OrganisasiState();
 }
 
-class _PrestasiNonAkademikTambahState extends State<MahasiswaPrestasiNonAkademikTambah> {
-  final _formKey = GlobalKey<FormState>();
-  TextEditingController kegiatan = new TextEditingController();
-  TextEditingController tingkat = new TextEditingController();
-  TextEditingController waktupelaksaan = new TextEditingController();
-  TextEditingController hasil = new TextEditingController();
+class _OrganisasiState extends State<OrganisasiTambah> {
   bool loading = false;
-  List data = [];
-  String userId;
-  String _pathSertifikat = '';
-  File _fileSertifikat;
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController namaOrganisasi = TextEditingController();
+  TextEditingController mulaiAktif = TextEditingController();
+  TextEditingController akhirAktif = TextEditingController();
+  TextEditingController jabatan = TextEditingController();
+  
+  File _fileSK;
+  String _pathSK = '';
+  String userId = '';
 
   @override
   void initState() {
@@ -44,35 +44,40 @@ class _PrestasiNonAkademikTambahState extends State<MahasiswaPrestasiNonAkademik
 
     SharedPreferences preferences = await SharedPreferences.getInstance();
     userId = preferences.getString('userid');
-    print(userId);
-
-    http.Response response = await http.get(urlApi + '/api/prestasi-non-akademik/list.php?nim=' + userId);
-    var body = jsonDecode(response.body);
     setState(() {
-      data = body;
       loading = false;
     });
   }
 
-  simpanPrestasi() async {
+  selectSK() async {
+    try {
+      _pathSK = await FilePicker.getFilePath(type: FileType.ANY);
+      setState(() {
+        _fileSK = new File(_pathSK);
+      });
+    } catch (e) {
+      print("Unsupported operation" + e.toString());
+    }
+  }
+
+  submit() async {
     Map<String, dynamic> dataToSend = {
       'nim' : userId,
-      'kegiatan' : kegiatan.text,
-      'tingkat' : tingkat.text,
-      'waktu_pelaksanaan' : waktupelaksaan.text,
-      'hasil' : hasil.text,
-      'sertifikat_base64' : base64Encode(_fileSertifikat.readAsBytesSync()),
-      'sertifikat_ext' : _pathSertifikat.split('.').last
+      'nama_organisasi' : namaOrganisasi.text,
+      'mulai_aktif' : mulaiAktif.text,
+      'akhir_aktif' : akhirAktif.text,
+      'jabatan' : jabatan.text,
+      'sk_base64' : base64Encode(_fileSK.readAsBytesSync()),
+      'sk_ext' : _pathSK.split('/').last
     };
-
-    http.Response response = await http.post(urlApi + '/api/prestasi-non-akademik/tambah.php', body: dataToSend);
+    http.Response response = await http.post(urlApi + '/api/organisasi/tambah.php', body: dataToSend);
     print(response.body);
 
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
         title: Text('Berhasil'),
-        content: Text('Prestasi Berhasil Tambahkan'),
+        content: Text('Organisasi Berhasil Tambahkan'),
         actions: <Widget>[
           FlatButton(
             child: Text('OK'),
@@ -83,25 +88,14 @@ class _PrestasiNonAkademikTambahState extends State<MahasiswaPrestasiNonAkademik
           )
         ],
       )
-    );
-  }
-
-  selectSertifikat() async {
-    try {
-      _pathSertifikat = await FilePicker.getFilePath(type: FileType.ANY);
-      setState(() {
-        _fileSertifikat = new File(_pathSertifikat);
-      });
-    } catch (e) {
-      print("Unsupported operation" + e.toString());
-    }
+    );    
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tambah Prestasi Baru'),
+        title: Text('Tambah Riwayat Organisasi Baru'),
       ),
       body: loading ? Center(
           child: SizedBox(
@@ -117,64 +111,66 @@ class _PrestasiNonAkademikTambahState extends State<MahasiswaPrestasiNonAkademik
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("Kegiatan"),
+                Text("Nama Organisasi"),
                 SizedBox(height: 10.0),
                 TextFormField(
                   decoration: InputDecoration(
-                    hintText: 'Masukkan Nama Kegiatan'
+                    hintText: 'Masukkan Nama Organisasi'
                   ),
                   validator: (String value) {
                     if (value.isEmpty) {
-                      return 'Nama Kegiatan tidak boleh kosong';
+                      return 'Nama Organisasi tidak boleh kosong';
                     }
                     return null;
                   },
-                  controller: kegiatan,
+                  controller: namaOrganisasi,
                 ),
                 SizedBox(height: 20.0),
-                Text("Tingkat Prestasi"),
+                Text("Mulai Aktif"),
                 SizedBox(height: 10.0),
                 TextFormField(
                   decoration: InputDecoration(
-                    hintText: 'Masukkan Tingkatan Prestasi'
+                    hintText: 'Mulai Aktif Organisasi'
                   ),
+                  keyboardType: TextInputType.number,
                   validator: (String value) {
                     if (value.isEmpty) {
-                      return 'Tingkatan tidak boleh kosong';
+                      return 'Mulai Aktif tidak boleh kosong';
                     }
                     return null;
                   },
-                  controller: tingkat,
+                  controller: mulaiAktif,
                 ),
                 SizedBox(height: 20.0),
-                Text("Waktu Pelaksaan"),
+                Text("Akhir Aktif"),
                 SizedBox(height: 10.0),
                 TextFormField(
                   decoration: InputDecoration(
-                    hintText: 'Waktu Pelaksaan'
+                    hintText: 'Akhir Aktif Organisasi'
                   ),
+                  keyboardType: TextInputType.number,
                   validator: (String value) {
                     if (value.isEmpty) {
-                      return 'Waktu Pelaksaan tidak boleh kosong';
+                      return 'Akhir Aktif tidak boleh kosong';
                     }
                     return null;
                   },
-                  controller: waktupelaksaan,
+                  controller: akhirAktif,
                 ),
                 SizedBox(height: 20.0),
-                Text("Hasil"),
+                Text("Jabatan"),
                 SizedBox(height: 10.0),
                 TextFormField(
                   decoration: InputDecoration(
-                    hintText: 'Masukkan Hasil Prestasi'
+                    hintText: 'Masukkan Jabatan di Organisasi'
                   ),
                   validator: (String value) {
                     if (value.isEmpty) {
-                      return 'Nama Kegiatan tidak boleh kosong';
+                      return 'Jabatan tidak boleh kosong';
                     }
                     return null;
                   },
-                  controller: hasil,
+                  controller: jabatan,
                 ),
                 SizedBox(height: 20.0),
                 FlatButton.icon(
@@ -183,16 +179,16 @@ class _PrestasiNonAkademikTambahState extends State<MahasiswaPrestasiNonAkademik
                   label: Text('Upload Sertifikat', style: TextStyle(
                     fontWeight: FontWeight.bold
                   )),
-                  onPressed: selectSertifikat,
+                  onPressed: selectSK,
                 ),
-                _pathSertifikat.isNotEmpty ? Text(_pathSertifikat) : Text('Sertifikat Belum Di Pilih'),
+                _pathSK.isNotEmpty ? Text(_pathSK) : Text('Sertifikat Belum Di Pilih'),
                 SizedBox(height: 20.0),
                 SizedBox(
                   width: double.infinity,
                   height: 50.0,
                   child: FlatButton(
                     color: Theme.of(context).primaryColor,
-                    onPressed: simpanPrestasi,
+                    onPressed: submit,
                     child: Text('SIMPAN', style: TextStyle(
                       color: Colors.white
                     )),
@@ -203,6 +199,6 @@ class _PrestasiNonAkademikTambahState extends State<MahasiswaPrestasiNonAkademik
           )
         )
       )
-    );
+    );    
   }
 }
