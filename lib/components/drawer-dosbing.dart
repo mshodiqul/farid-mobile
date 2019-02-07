@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class DrawerStaff extends StatelessWidget {
+class DrawerDosbing extends StatelessWidget {
   final String nama;
   final String userId;
-  DrawerStaff({
+  DrawerDosbing({
     @required this.nama,
     @required this.userId
   });
@@ -57,68 +57,12 @@ class DrawerStaff extends StatelessWidget {
           },
         ),
         ListTile(
-          title: Text('Kelolah Users'),
+          title: Text('Persetujuan Prestasi'),
           leading: Icon(Icons.person),
           onTap: () {
             Navigator.of(context).pushNamed('/user');
           },
         ),
-        ListTile(
-          title: Text('Mahasiswa'),
-          leading: Icon(Icons.group),
-          onTap: () {
-            Navigator.of(context).pushNamed('/mahasiswa');
-          },
-        ),
-        ListTile(
-          title: Text('Kegiatan'),
-          leading: Icon(Icons.calendar_today),
-          onTap: () {
-            Navigator.of(context).pushNamed('/kegiatan');
-          },
-        ),
-        ListTile(
-          title: Text('Akademik'),
-          leading: Icon(Icons.star),
-          onTap: () {
-            Navigator.of(context).pushNamed('/prestasi-akademik');
-          },
-        ),
-        ListTile(
-          title: Text('Non Akademik'),
-          leading: Icon(Icons.filter),
-          onTap: () {
-            Navigator.of(context).pushNamed('/prestasi-non-akademik');
-          },
-        ),
-        ListTile(
-          title: Text('Organisasi'),
-          leading: Icon(Icons.group_work),
-          onTap: () {
-            Navigator.of(context).pushNamed('/organisasi');
-          },
-        ),
-        ListTile(
-          title: Text('Karya Tulis'),
-          leading: Icon(Icons.book),
-          onTap: () {
-            Navigator.of(context).pushNamed('/karya-tulis');
-          },
-        ),
-        ListTile(
-          title: Text('Non Akademik'),
-          leading: Icon(Icons.attach_money),
-          onTap: () {
-            Navigator.of(context).pushNamed('/pengajuan-dana');
-          },
-        ),
-        ListTile(
-          title: Text('Laporan Semester'),
-          leading: Icon(Icons.collections_bookmark),
-          onTap: () {
-            Navigator.of(context).pushNamed('/laporan-semester');
-          },
-        )
       ],
     );
   }

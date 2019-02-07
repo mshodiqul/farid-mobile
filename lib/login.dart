@@ -34,6 +34,8 @@ class LoginAppState extends State<LoginApp> {
     if (preferences.getString('userid') != null) {
       if (preferences.getString('role') == 'mahasiswa') {
         Navigator.pushNamedAndRemoveUntil(scaffoldKey.currentState.context, '/mahasiswa/dashboard', (Route<dynamic> route) => false);
+      } else if (preferences.getString('role') == 'dosbing') {
+        Navigator.pushNamedAndRemoveUntil(scaffoldKey.currentState.context, '/dosbing/dashboard', (Route<dynamic> route) => false);
       } else {
         Navigator.pushNamedAndRemoveUntil(scaffoldKey.currentState.context, '/dashboard', (Route<dynamic> route) => false);
       }
@@ -145,6 +147,8 @@ class LoginAppState extends State<LoginApp> {
 
           if (body['role'] == 'mahasiswa') {
             Navigator.pushNamedAndRemoveUntil(context, '/mahasiswa/dashboard', (Route<dynamic> route) => false);
+          } else if (body['role'] == 'dosbing') {
+            Navigator.pushNamedAndRemoveUntil(context, '/dosbing/dashboard', (Route<dynamic> route) => false);
           } else {
             Navigator.pushNamedAndRemoveUntil(context, '/dashboard', (Route<dynamic> route) => false);
           }

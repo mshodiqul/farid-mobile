@@ -12,9 +12,11 @@ import './prestasi-non-akademik.dart';
 import './karya-tulis.dart';
 import './pengajuan-dana.dart';
 import './kegiatan-tambah.dart';
-
 import './organisasi.dart';
+import './laporan-semester.dart';
 import './login.dart';
+
+// MAHASISWA
 import './mahasiswa/karya-tulis.dart';
 import './mahasiswa/karya-tulis-tambah.dart';
 import './mahasiswa/prestasi-akademik.dart';
@@ -24,12 +26,14 @@ import './mahasiswa/organisasi.dart';
 import './mahasiswa/pengajuan-dana.dart';
 import './mahasiswa/pengajuan-dana-add.dart';
 import './mahasiswa/kegiatan.dart';
-
-// MAHASISWA
 import './mahasiswa/dashboard.dart';
 import './mahasiswa/data-mahasiswa.dart';
 import './mahasiswa/profile.dart';
 import './mahasiswa/organisasi-tambah.dart';
+
+// DOSBING
+import './dosbing/dashboard.dart';
+import './dosbing/persetujuan.dart';
 
 class HomeApp extends StatefulWidget {
   _HomeAppState createState() => _HomeAppState();
@@ -77,6 +81,7 @@ class _HomeAppState extends State<HomeApp> {
         '/karya-tulis' : (_) => KaryaTulisApp(),
         '/pengajuan-dana' : (_) => PengajuanDana(),
         '/organisasi' : (_) => Organisasi(),
+        '/laporan-semester' : (_) => LaporanSemester(),
 
         '/mahasiswa/dashboard' : (_) => DashboardMahasiswaApp(),
         '/mahasiswa/data' : (_) => DataMahasiswa(),
@@ -90,7 +95,10 @@ class _HomeAppState extends State<HomeApp> {
         '/mahasiswa/pengajuan-dana/add' : (_) => MahasiswaPengajuanDanaTambah(),
         '/mahasiswa/karya-tulis' : (_) => KaryaTulis(),
         '/mahasiswa/karya-tulis/tambah' : (_) => KaryaTulisTambah(),
-        '/mahasiswa/kegiatan' : (_) => MahasiswaKegiatan()
+        '/mahasiswa/kegiatan' : (_) => MahasiswaKegiatan(),
+
+        '/dosbing/dashboard' : (_) => DashboardDosbing(),
+        '/dosbing/persetujuan' : (_) => PersetujuanPrestasi()
       },
       initialRoute: '/',
     );

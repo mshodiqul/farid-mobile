@@ -27,15 +27,15 @@ class _DashboardAppState extends State<DashboardApp> {
   
   getDetailData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String userId = preferences.getString('userid');
-    String nama = preferences.getString('nama');
-    String role = preferences.getString('role');
+    String userIdU = preferences.getString('userid');
+    String namaU = preferences.getString('nama');
+    String roleU = preferences.getString('role');
 
     setState(() {
       loading = false;
-      nama = nama;
-      role = role;
-      userId = userId;
+      nama = namaU;
+      role = roleU;
+      userId = userIdU;
     });
   }
   
@@ -230,6 +230,7 @@ class _DashboardAppState extends State<DashboardApp> {
                         child: InkWell(
                           splashColor: Colors.green,
                           onTap: () {
+                            Navigator.of(context).pushNamed('/laporan-semester');
                           },
                           child: GridTile(
                             child: Icon(Icons.collections_bookmark, size: 40.0, color: Colors.green),
