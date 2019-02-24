@@ -41,6 +41,7 @@ class _LaporanSemesterDetailState extends State<LaporanSemesterDetail> {
 
     http.Response response = await http.get(urlApi + '/api/prestasi-akademik/list.php?nim=' + widget.nim);
     var body = jsonDecode(response.body);
+    print(body);
     setState(() {
       data = body.length > 0 ? body[0] : {
         'Nilai_Semester1' : '0',

@@ -15,9 +15,10 @@ class MahasiswaPrestasiNonAkademikTambah extends StatefulWidget {
 class _PrestasiNonAkademikTambahState extends State<MahasiswaPrestasiNonAkademikTambah> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController kegiatan = new TextEditingController();
-  TextEditingController tingkat = new TextEditingController();
   TextEditingController waktupelaksaan = new TextEditingController();
-  TextEditingController hasil = new TextEditingController();
+  String tingkat = 'Provinsi';
+  String hasil = 'Juara 1';
+
   bool loading = false;
   List data = [];
   String userId;
@@ -58,9 +59,9 @@ class _PrestasiNonAkademikTambahState extends State<MahasiswaPrestasiNonAkademik
     Map<String, dynamic> dataToSend = {
       'nim' : userId,
       'kegiatan' : kegiatan.text,
-      'tingkat' : tingkat.text,
+      'tingkat' : tingkat,
       'waktu_pelaksanaan' : waktupelaksaan.text,
-      'hasil' : hasil.text,
+      'hasil' : hasil,
       'sertifikat_base64' : base64Encode(_fileSertifikat.readAsBytesSync()),
       'sertifikat_ext' : _pathSertifikat.split('.').last
     };
@@ -134,17 +135,32 @@ class _PrestasiNonAkademikTambahState extends State<MahasiswaPrestasiNonAkademik
                 SizedBox(height: 20.0),
                 Text("Tingkat Prestasi"),
                 SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'Masukkan Tingkatan Prestasi'
+                SizedBox(
+                  width: double.infinity,
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton(
+                      items: [
+                        DropdownMenuItem(
+                          child: Text('Internasional'),
+                          value: 'Nasional',
+                        ),
+                        DropdownMenuItem(
+                          child: Text('Nasional'),
+                          value: 'Nasional',
+                        ),
+                        DropdownMenuItem(
+                          child: Text('Provinsi'),
+                          value: 'Provinsi',
+                        )
+                      ],
+                      onChanged: (v) {
+                        setState(() {
+                          kegiatan = v;
+                        });
+                      },
+                      value: tingkat,
+                    )
                   ),
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return 'Tingkatan tidak boleh kosong';
-                    }
-                    return null;
-                  },
-                  controller: tingkat,
                 ),
                 SizedBox(height: 20.0),
                 Text("Waktu Pelaksaan"),
@@ -164,17 +180,32 @@ class _PrestasiNonAkademikTambahState extends State<MahasiswaPrestasiNonAkademik
                 SizedBox(height: 20.0),
                 Text("Hasil"),
                 SizedBox(height: 10.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'Masukkan Hasil Prestasi'
+                SizedBox(
+                  width: double.infinity,
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton(
+                      items: [
+                        DropdownMenuItem(
+                          child: Text('Juara 1'),
+                          value: 'Juara 1',
+                        ),
+                        DropdownMenuItem(
+                          child: Text('Juara 2'),
+                          value: 'Juara 2',
+                        ),
+                        DropdownMenuItem(
+                          child: Text('Juara 3'),
+                          value: 'Juara 3',
+                        )
+                      ],
+                      onChanged: (v) {
+                        setState(() {
+                          hasil = v;
+                        });
+                      },
+                      value: hasil,
+                    )
                   ),
-                  validator: (String value) {
-                    if (value.isEmpty) {
-                      return 'Nama Kegiatan tidak boleh kosong';
-                    }
-                    return null;
-                  },
-                  controller: hasil,
                 ),
                 SizedBox(height: 20.0),
                 FlatButton.icon(

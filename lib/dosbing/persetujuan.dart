@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../config/api.dart' show urlApi;
 import './persetujuan-detail.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PersetujuanPrestasi extends StatefulWidget {
   @override
@@ -28,11 +29,14 @@ class _PersetujuanPrestasiState extends State<PersetujuanPrestasi> {
   }
 
   getData() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String userIdU = preferences.getString('userid');
+
     setState(() {
       loading = true;
     });
 
-    http.Response response = await http.get(urlApi + '/api/prestasi-akademik/list.php?status=pending');
+    http.Response response = await http.get(urlApi + '/api/prestasi-akademik/list.php?role=dosbing&nip=' + userIdU);
     var body = jsonDecode(response.body);
     print(body);
 

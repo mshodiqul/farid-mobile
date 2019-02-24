@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../config/api.dart' show urlApi;
 import 'package:shared_preferences/shared_preferences.dart';
+import './prestasi-non-akademik-detail.dart';
 
 class MahasiswaPrestasiNonAkademik extends StatefulWidget {
   @override
@@ -69,6 +70,11 @@ class _PrestasiNonAkademikState extends State<MahasiswaPrestasiNonAkademik> {
           var prestasi = data[index];
 
           return ListTile(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (_) => PrestasiNonAkademikDetailMhs(id: prestasi['id_prestasi_non_akademik'])
+              ));
+            },
             leading: CircleAvatar(
               backgroundColor: Colors.red,
               child: Text((index + 1).toString()),

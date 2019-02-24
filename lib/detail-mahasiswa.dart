@@ -79,6 +79,15 @@ class _DetailMahasiswaState extends State<DetailMahasiswa> {
               SizedBox(height: 40.0),
               Row(
                 children: <Widget>[
+                  Text('Password'),
+                  SizedBox(width: 20.0),
+                  Text('${data['password']}', style: TextStyle(
+                    fontWeight: FontWeight.bold
+                  ))
+                ],
+              ),
+              Row(
+                children: <Widget>[
                   Text('Tempat, Tanggal Lahir'),
                   SizedBox(width: 20.0),
                   Text('${data['tempat_lahir']}, ${data['tanggal_lahir']}', style: TextStyle(

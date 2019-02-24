@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/drawer-mahasiswa.dart';
+import '../config/api.dart' show urlApi;
+import 'package:http/http.dart' as http;
 
 class DashboardMahasiswaApp extends StatefulWidget {
   _DashboardAppState createState() => _DashboardAppState();
 }
 
 class _DashboardAppState extends State<DashboardMahasiswaApp> {
+
+  @override
+  initState() {
+    super.initState();
+    setDeviceToken();
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+  }
+
+  setDeviceToken() async {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      String token = preferences.getString('token');
+      String userIdU = preferences.getString('userid');
+      http.Response response = await http.get(urlApi + '/api/users/register_device.php?token=${token}&user_id=${userIdU}');
+      print(response.body);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

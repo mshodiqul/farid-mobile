@@ -23,6 +23,7 @@ class _DashboardDosbingState extends State<DashboardDosbing> {
     // TODO: implement initState
     super.initState();
     getDetailData();
+    setDeviceToken();
   }
 
   @override
@@ -30,7 +31,15 @@ class _DashboardDosbingState extends State<DashboardDosbing> {
     // TODO: implement dispose
     super.dispose();
   }
-  
+
+  setDeviceToken() async {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      String token = preferences.getString('token');
+      String userIdU = preferences.getString('userid');
+      http.Response response = await http.get(urlApi + '/api/users/register_device.php?token=${token}&user_id=${userIdU}');
+      print(response.body);
+  }
+
   getDetailData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String userIdU = preferences.getString('userid');

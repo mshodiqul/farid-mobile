@@ -10,6 +10,7 @@ class _AddUserState extends State<AddUser> {
   String role = 'staff';
   final _formKey = GlobalKey<FormState>();
   TextEditingController username = TextEditingController();
+  TextEditingController nama = TextEditingController();
   TextEditingController password = TextEditingController();
   bool loading = false;
 
@@ -29,7 +30,7 @@ class _AddUserState extends State<AddUser> {
       Map<String, dynamic> dataToSend = {
         'username' : username.text,
         'password' : password.text,
-        'nama' : username.text,
+        'nama' : nama.text,
         'role' : role
       };
 
@@ -67,6 +68,21 @@ class _AddUserState extends State<AddUser> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                Text("Nama"),
+                SizedBox(height: 10.0),
+                TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'Masukkan Nama'
+                  ),
+                  validator: (String value) {
+                    if (value.isEmpty) {
+                      return 'Nama tidak boleh kosong';
+                    }
+                    return null;
+                  },
+                  controller: nama,
+                ),
+                SizedBox(height: 10.0),
                 Text("Username"),
                 SizedBox(height: 10.0),
                 TextFormField(
@@ -99,7 +115,7 @@ class _AddUserState extends State<AddUser> {
                 ),
                 SizedBox(height: 20.0),
                 DropdownButton(
-                  items: ['staff','pemimpin'].map((v) {
+                  items: ['staff','pemimpin','dosbing'].map((v) {
                     return DropdownMenuItem(
                       value: v,
                       child: Text(v)

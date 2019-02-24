@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../config/api.dart' show urlApi;
 import 'package:http/http.dart' as http;
 
@@ -24,9 +25,11 @@ class _PrestasiNonAkademikState extends State<MahasiswaKegiatan> {
   }
 
   getData() async {
-    http.Response response = await http.get(urlApi + '/api/kegiatan/list.php');
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String userIdU = preferences.getString('userid');
+
+    http.Response response = await http.get(urlApi + '/api/kegiatan/apply-list.php?nim=${userIdU}');
     var body = jsonDecode(response.body);
-    print(body);
     setState(() {
       data = body;
     });
@@ -41,34 +44,21 @@ class _PrestasiNonAkademikState extends State<MahasiswaKegiatan> {
       floatingActionButton: FloatingActionButton(
         child : Icon(Icons.add_box),
         onPressed: () {
-          // Navigator.pushNamed(context, '/mahasiswa/kegiatan/add');
-          showDialog(
-            context: context,
-            builder: (_) => AlertDialog(
-              title: Text('Coming Soon'),
-              content: Text('Halaman Sedang Dalam Perbaikan'),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text('OK'),
-                  onPressed: () {
-                    Navigator.of(context, rootNavigator: true).pop();
-                  },
-                )
-              ],
-            )
-          );
+          Navigator.pushNamed(context, '/mahasiswa/kegiatan/list');
         }
       ),
       body: ListView.builder(
-        itemCount: 3,
+        itemCount: data.length,
         itemBuilder: (_, int index) {
+          Map<dynamic, dynamic> d = data[index];
+
           return ListTile(
             leading: CircleAvatar(
               backgroundColor: Colors.red,
               child: Text((index + 1).toString()),
             ),
-            title: Text('Contoh Kegiatan Anda'),
-            subtitle: Text('08 April 2019'),
+            title: Text(d['judul']),
+            subtitle: Text(d['tanggal']),
           );
         },
       )

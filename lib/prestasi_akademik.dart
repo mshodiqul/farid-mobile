@@ -25,8 +25,9 @@ class _PrestasiAkademikState extends State<PrestasiAkademik> {
     setState(() {
       loading = true;
     });
-    http.Response response = await http.get(urlApi + '/api/mahasiswa/list.php');
+    http.Response response = await http.get(urlApi + '/api/prestasi-akademik/list.php?role=staff');
     var body = jsonDecode(response.body);
+    print(body);
     await Future.delayed(Duration(
       seconds: 1
     ));
@@ -60,9 +61,10 @@ class _PrestasiAkademikState extends State<PrestasiAkademik> {
               child: Text((index+1).toString()),
             ),
             title: Text('${mahasiswa['nama']}'),
+            subtitle: Text(mahasiswa['status']),
             onTap: () {
               Navigator.push(context, MaterialPageRoute(
-                builder: (_) => new PrestasiAkademikDetail(id: mahasiswa['nim'])
+                builder: (_) => new PrestasiAkademikDetail(id: mahasiswa['NIM'])
               ));
             },
           );

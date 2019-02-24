@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import './dashboard.dart';
 import './user.dart';
@@ -15,6 +16,7 @@ import './kegiatan-tambah.dart';
 import './organisasi.dart';
 import './laporan-semester.dart';
 import './login.dart';
+import './mahasiswa/ganti-password.dart';
 
 // MAHASISWA
 import './mahasiswa/karya-tulis.dart';
@@ -30,6 +32,7 @@ import './mahasiswa/dashboard.dart';
 import './mahasiswa/data-mahasiswa.dart';
 import './mahasiswa/profile.dart';
 import './mahasiswa/organisasi-tambah.dart';
+import './mahasiswa/kegiatan-list.dart';
 
 // DOSBING
 import './dosbing/dashboard.dart';
@@ -40,13 +43,34 @@ class HomeApp extends StatefulWidget {
 }
 
 class _HomeAppState extends State<HomeApp> {
+  FirebaseMessaging _firebaseMessaging = new FirebaseMessaging();
   bool loggedIn = false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) {
+        print('on message $message');
+      },
+      onResume: (Map<String, dynamic> message) {
+        print('on resume $message');
+      },
+      onLaunch: (Map<String, dynamic> message) {
+        print('on launch $message');
+      },
+    );
+
+    _firebaseMessaging.requestNotificationPermissions(
+      const IosNotificationSettings(sound: true, badge: true, alert: true));
+      _firebaseMessaging.getToken().then((token) async {
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        await preferences.setString('token', token);
+        print(token);
+      });
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -96,9 +120,12 @@ class _HomeAppState extends State<HomeApp> {
         '/mahasiswa/karya-tulis' : (_) => KaryaTulis(),
         '/mahasiswa/karya-tulis/tambah' : (_) => KaryaTulisTambah(),
         '/mahasiswa/kegiatan' : (_) => MahasiswaKegiatan(),
+        '/mahasiswa/kegiatan/list' : (_) => MahasiswaKegiatanList(),
 
         '/dosbing/dashboard' : (_) => DashboardDosbing(),
-        '/dosbing/persetujuan' : (_) => PersetujuanPrestasi()
+        '/dosbing/persetujuan' : (_) => PersetujuanPrestasi(),
+
+        '/ganti-password' : (_) => MhsGantiPassword()
       },
       initialRoute: '/',
     );

@@ -78,6 +78,25 @@ class _PengajuanDanaDetailState extends State<PengajuanDanaDetail> {
     getData();
   }
 
+  tolakPengajuan() async {
+    Navigator.of(context, rootNavigator: true).pop();
+
+    setState(() {
+      loading = true;
+    });
+
+    Map<String, dynamic> dataToSend = {
+      'status' : 'ditolak',
+      'id' : widget.id
+    };
+
+    http.Response response = await http.post(urlApi + '/api/pengajuan-dana/confirmasi.php', body: dataToSend);
+    setState(() {
+      loading = false;
+    });
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,7 +108,25 @@ class _PengajuanDanaDetailState extends State<PengajuanDanaDetail> {
           textColor: Colors.red,
           child: Text('Tolak'),
           onPressed: () {
-            
+            return showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+                title: Text('Konfirmasi'),
+                content: Text('Apakah Anda Yakin Ingin Menolak Pengajuan Ini ?'),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text('YA, TOLAK SAJA'),
+                    onPressed: tolakPengajuan,
+                  ),
+                  FlatButton(
+                    child: Text('Tidak'),
+                    onPressed: () {
+                      Navigator.of(context, rootNavigator: true).pop();
+                    },
+                  )
+                ],
+              )
+            );            
           },
         ),
         FlatButton(

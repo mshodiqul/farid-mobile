@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import './components/drawer-staff.dart';
+import 'package:http/http.dart' as http;
+import './config/api.dart' show urlApi;
 
 class DashboardApp extends StatefulWidget {
   _DashboardAppState createState() => _DashboardAppState();
@@ -37,6 +39,16 @@ class _DashboardAppState extends State<DashboardApp> {
       role = roleU;
       userId = userIdU;
     });
+
+    setDeviceToken();
+  }
+
+  setDeviceToken() async {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      String token = preferences.getString('token');
+      String userIdU = preferences.getString('userid');
+      http.Response response = await http.get(urlApi + '/api/users/register_device.php?token=${token}&user_id=${userIdU}');
+      print(response.body);
   }
   
   @override
